@@ -15,12 +15,27 @@ import { createApp } from './app.js';
 async function main() {
   await connectDB();
 
+  // ── Diagnostic: test raw connectivity to Qdrant ──────────────────
+  const qdrantTestUrl = `${env.qdrantUrl.replace(/\/$/, '')}/collections`;
+  console.log(`[qdrant-diag] Testing connectivity to: ${qdrantTestUrl}`);
+  try {
+    const resp = await fetch(qdrantTestUrl, {
+      headers: env.qdrantApiKey ? { 'api-key': env.qdrantApiKey } : {},
+    });
+    console.log(`[qdrant-diag] ✅ Native fetch succeeded — status ${resp.status}`);
+  } catch (diagErr) {
+    console.error(`[qdrant-diag] ❌ Native fetch FAILED:`, diagErr.message);
+    if (diagErr.cause) console.error(`[qdrant-diag]    cause:`, diagErr.cause);
+  }
+  // ────────────────────────────────────────────────────────────────
+
   try {
     await ensureCollection();
   } catch (err) {
     // Don't kill the API if Qdrant is briefly unreachable — uploads will
     // surface the error; retried on next call.
     console.error('[qdrant] init failed (continuing):', err.message);
+    if (err.cause) console.error('[qdrant] cause:', err.cause);
   }
 
   const app = createApp();

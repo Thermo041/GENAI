@@ -30,6 +30,7 @@ export async function processPdf({ pdfId, userId, filename, buffer }) {
     console.log(`[pdf] Indexed "${filename}" — ${pageCount} pages, ${chunkCount} chunks`);
   } catch (err) {
     console.error(`[pdf] Processing failed for "${filename}":`, err.message);
+    if (err.cause) console.error(`[pdf]   cause:`, err.cause);
     await Pdf.findByIdAndUpdate(pdfId, {
       status: 'failed',
       processingError: err.message,
