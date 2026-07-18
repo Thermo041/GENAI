@@ -7,9 +7,18 @@ import { embeddings, EMBEDDING_DIM } from './embeddings.js';
  * Thin service around Qdrant Cloud: one collection for all users,
  * isolated per-user (and optionally per-PDF) via payload filters.
  */
+// Render's free tier blocks outbound connections to non-standard ports (like 6333).
+// Qdrant Cloud listens on port 443 too, so force HTTPS to use 443 instead of
+// the library's default 6333.
+const parsedUrl = new URL(env.qdrantUrl);
+const qdrantPort = parsedUrl.port
+  ? parseInt(parsedUrl.port, 10)
+  : parsedUrl.protocol === 'https:' ? 443 : 6333;
+
 export const qdrant = new QdrantClient({
   url: env.qdrantUrl,
   apiKey: env.qdrantApiKey,
+  port: qdrantPort,
 });
 
 /** Create the collection + payload indexes on boot if they don't exist. */
