@@ -15,9 +15,7 @@
     "react-dom": "^18.3.1",
     "react-markdown": "^9.0.3",
     "react-router-dom": "^6.28.1",
-    "remark-gfm": "^4.0.0"
-  },
-  "devDependencies": {
+    "remark-gfm": "^4.0.0",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
     "daisyui": "^4.12.23",
