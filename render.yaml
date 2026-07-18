@@ -40,7 +40,7 @@ services:
       - key: AWS_BUCKET_NAME
         sync: false
       - key: EMBEDDING_MODEL
-        value: Xenova/bge-small-en-v1.5
+        value: Xenova/all-MiniLM-L6-v2
       - key: MAX_FILE_SIZE_MB
         value: 20
       - key: CHUNK_SIZE
