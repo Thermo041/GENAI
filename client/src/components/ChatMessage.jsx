@@ -83,10 +83,10 @@ export default function ChatMessage({ role, content, sources, streaming }) {
               {sources.map((s, i) => (
                 <span
                   key={i}
-                  className="badge badge-outline badge-sm gap-1"
-                  title={`Relevance: ${s.score ?? '—'}`}
+                  className="badge badge-outline badge-sm gap-1 max-w-full"
+                  title={`${s.filename} (p.${s.pageNumber})`}
                 >
-                  📄 {s.filename} · p.{s.pageNumber}
+                  📄 <span className="truncate max-w-[150px] sm:max-w-[250px]">{s.filename}</span> · p.{s.pageNumber}
                 </span>
               ))}
             </div>
