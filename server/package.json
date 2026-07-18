@@ -1,0 +1,35 @@
+{
+  "name": "ai-pdf-chatbot-server",
+  "version": "1.0.0",
+  "description": "Production-ready RAG PDF Chatbot API — Express, MongoDB, Qdrant, LangChain, Groq",
+  "type": "module",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.700.0",
+    "@huggingface/transformers": "^3.3.0",
+    "@langchain/community": "^0.3.20",
+    "@langchain/core": "^0.3.30",
+    "@langchain/groq": "^0.2.0",
+    "@langchain/qdrant": "^0.1.1",
+    "@langchain/textsplitters": "^0.1.0",
+    "@qdrant/js-client-rest": "^1.13.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.0",
+    "multer": "^1.4.5-lts.1",
+    "unpdf": "^1.6.2"
+  }
+}

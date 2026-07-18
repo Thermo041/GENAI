@@ -1,0 +1,15 @@
+{
+  "name": "ai-pdf-chatbot",
+  "version": "1.0.0",
+  "description": "AI PDF Chatbot (RAG) — monorepo root with Render build/start scripts",
+  "private": true,
+  "scripts": {
+    "build": "npm install --prefix server && npm install --prefix client && npm run build --prefix client",
+    "start": "npm start --prefix server",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

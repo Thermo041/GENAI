@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbar for chat areas */
+.chat-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.chat-scroll::-webkit-scrollbar-thumb {
+  @apply bg-base-300 rounded-full;
+}
+
+/* Markdown content inside chat bubbles */
+.prose-chat h1,
+.prose-chat h2,
+.prose-chat h3 {
+  @apply font-bold mt-3 mb-1.5;
+}
+.prose-chat h1 { @apply text-lg; }
+.prose-chat h2 { @apply text-base; }
+.prose-chat p { @apply my-1.5 leading-relaxed; }
+.prose-chat ul { @apply list-disc pl-5 my-1.5 space-y-0.5; }
+.prose-chat ol { @apply list-decimal pl-5 my-1.5 space-y-0.5; }
+.prose-chat a { @apply link link-primary; }
+.prose-chat table { @apply table table-sm my-2; }
+.prose-chat blockquote { @apply border-l-4 border-primary/40 pl-3 italic opacity-80 my-2; }
+.prose-chat code:not(pre code) {
+  @apply bg-base-300 px-1.5 py-0.5 rounded text-sm font-mono;
+}
+
+/* Blinking cursor while streaming */
+.streaming-cursor::after {
+  content: '▍';
+  @apply text-primary animate-pulse;
+}
