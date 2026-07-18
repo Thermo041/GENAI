@@ -2,7 +2,7 @@ services:
   - type: web
     name: ai-pdf-chatbot
     runtime: node
-    plan: starter
+    plan: free
     buildCommand: npm run build
     startCommand: npm start
     healthCheckPath: /api/health
