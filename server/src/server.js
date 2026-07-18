@@ -17,12 +17,17 @@ async function main() {
 
   // ── Diagnostic: test raw connectivity to Qdrant ──────────────────
   const qdrantTestUrl = `${env.qdrantUrl.replace(/\/$/, '')}/collections`;
-  console.log(`[qdrant-diag] Testing connectivity to: ${qdrantTestUrl}`);
+  const hasKey = !!env.qdrantApiKey;
+  console.log(`[qdrant-diag] URL: ${qdrantTestUrl}`);
+  console.log(`[qdrant-diag] API key present: ${hasKey}, length: ${env.qdrantApiKey?.length ?? 0}`);
   try {
     const resp = await fetch(qdrantTestUrl, {
-      headers: env.qdrantApiKey ? { 'api-key': env.qdrantApiKey } : {},
+      headers: hasKey
+        ? { 'api-key': env.qdrantApiKey, 'Authorization': `Bearer ${env.qdrantApiKey}` }
+        : {},
     });
-    console.log(`[qdrant-diag] ✅ Native fetch succeeded — status ${resp.status}`);
+    const body = await resp.text();
+    console.log(`[qdrant-diag] Status ${resp.status} — ${body.slice(0, 200)}`);
   } catch (diagErr) {
     console.error(`[qdrant-diag] ❌ Native fetch FAILED:`, diagErr.message);
     if (diagErr.cause) console.error(`[qdrant-diag]    cause:`, diagErr.cause);
