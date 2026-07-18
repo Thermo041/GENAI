@@ -1,3 +1,8 @@
+import dns from 'dns';
+
+// Fix for Node 18+ native fetch failing with "fetch failed" on some cloud providers due to broken IPv6
+dns.setDefaultResultOrder('ipv4first');
+
 import { env } from './config/env.js';
 import { connectDB } from './config/db.js';
 import { ensureCollection } from './langchain/qdrantStore.js';
