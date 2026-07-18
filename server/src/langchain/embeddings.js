@@ -12,7 +12,11 @@ let extractorPromise = null;
 async function getExtractor() {
   if (!extractorPromise) {
     extractorPromise = (async () => {
-      const { pipeline } = await import('@huggingface/transformers');
+      const { pipeline, env: hfEnv } = await import('@huggingface/transformers');
+      
+      // Limit threads to 1 to drastically reduce memory usage on Render's 512MB free tier
+      hfEnv.backends.onnx.wasm.numThreads = 1;
+
       console.log(`[embeddings] Loading model ${env.embeddingModel}...`);
       const extractor = await pipeline('feature-extraction', env.embeddingModel, {
         dtype: 'q8', // quantized — fast on CPU, ideal for Render
